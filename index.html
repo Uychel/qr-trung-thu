@@ -37,25 +37,15 @@
     /* Trái tim */
     .heart {
       position: fixed;
-      animation: floatUp linear forwards, heartbeat 1s infinite;
+      animation: floatUp linear forwards;
       z-index:0;
       opacity:0.9;
       pointer-events:none;
     }
-
-    /* Bay lên */
     @keyframes floatUp {
       0% { transform: translateY(100vh) scale(1); opacity:0; }
       20% { opacity:1; }
       100% { transform: translateY(-20vh) scale(2); opacity:0; }
-    }
-
-    /* Tim đập */
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      25% { transform: scale(1.2); }
-      50% { transform: scale(1); }
-      75% { transform: scale(1.3); }
     }
   </style>
 </head>
@@ -80,7 +70,7 @@
       heart.innerHTML = "❤";
 
       // Kích thước đa dạng
-      const sizes = [20, 40, 60, 80, 120, 150]; 
+      const sizes = [15, 30, 50, 80, 120, 150]; 
       heart.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)] + "px";
 
       // Vị trí ngẫu nhiên
@@ -91,7 +81,10 @@
 
       // Thời gian bay
       const duration = Math.random() * 4 + 3; 
-      heart.style.animationDuration = duration + "s, 1s"; // bay + tim đập
+      heart.style.animationDuration = duration + "s";
+
+      // Xoay nhẹ khi bay
+      heart.style.transform = `rotate(${Math.random()*360}deg)`;
 
       document.body.appendChild(heart);
 
