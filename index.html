@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Ảnh của mình</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      margin:0; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      flex-direction:column;
+      background: radial-gradient(circle at top left,#0b1440,#071026);
+      height:100vh;
+      overflow:hidden;
+    }
+    .wrap { text-align:center; position:relative; z-index:1; }
+    img { 
+      max-width:90vw; 
+      max-height:80vh; 
+      border-radius:12px; 
+      box-shadow:0 0 20px rgba(0,0,0,0.5); 
+    }
+    h1 { 
+      font-size:1.6rem; 
+      margin-bottom:12px; 
+      color:#ffd700; 
+      text-shadow:0 0 8px #ffae00,0 0 12px #ffae00; 
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity:1; }
+      50% { opacity:0.5; }
+    }
+
+    /* Trái tim */
+    .heart {
+      position: fixed;
+      color: red;
+      font-size: 20px;
+      animation: floatUp 5s linear infinite;
+      z-index:0;
+      opacity:0.8;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(1); opacity:0; }
+      20% { opacity:1; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity:0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Ngày đầu tiên đó!!!</h1>
+    <img src="myphoto.jpg" alt="Ảnh của mình">
+  </div>
+
+  <!-- Nhạc nền -->
+  <audio id="bg-music" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Hàm tạo trái tim ngẫu nhiên
+    function createHeart(){
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(()=>{ heart.remove(); },5000);
+    }
+    setInterval(createHeart, 500);
+
+    // Một số trình duyệt chặn autoplay, nên chờ user click
+    document.body.addEventListener("click", ()=>{
+      const music = document.getElementById("bg-music");
+      music.play();
+    });
+  </script>
+</body>
+</html>
