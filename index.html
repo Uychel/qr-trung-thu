@@ -37,15 +37,25 @@
     /* Trái tim */
     .heart {
       position: fixed;
-      animation: floatUp linear forwards;
+      animation: floatUp linear forwards, heartbeat 1s infinite;
       z-index:0;
       opacity:0.9;
       pointer-events:none;
     }
+
+    /* Bay lên */
     @keyframes floatUp {
       0% { transform: translateY(100vh) scale(1); opacity:0; }
       20% { opacity:1; }
       100% { transform: translateY(-20vh) scale(2); opacity:0; }
+    }
+
+    /* Tim đập */
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.2); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.3); }
     }
   </style>
 </head>
@@ -64,21 +74,15 @@
     const colors = ["#ff4d4d","#ff66b2","#ffcc00","#66ff66","#66ccff","#ff99ff","#ffffff"];
 
     // Hàm tạo trái tim ngẫu nhiên
-function createHeart(){
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "❤";
+    function createHeart(){
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤";
 
-  // Tạo kích thước đa dạng: từ 15px đến 150px
-  const sizes = [15, 30, 50, 80, 120, 150]; 
-  heart.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)] + "px";
+      // Kích thước đa dạng
+      const sizes = [20, 40, 60, 80, 120, 150]; 
+      heart.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)] + "px";
 
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-  document.body.appendChild(heart);
-
-  setTimeout(()=>{ heart.remove(); },5000);
-}
       // Vị trí ngẫu nhiên
       heart.style.left = Math.random() * 100 + "vw";
 
@@ -87,17 +91,14 @@ function createHeart(){
 
       // Thời gian bay
       const duration = Math.random() * 4 + 3; 
-      heart.style.animationDuration = duration + "s";
-
-      // Xoay nhẹ khi bay
-      heart.style.transform = `rotate(${Math.random()*360}deg)`;
+      heart.style.animationDuration = duration + "s, 1s"; // bay + tim đập
 
       document.body.appendChild(heart);
 
       setTimeout(()=>{ heart.remove(); }, duration * 1000);
     }
 
-    // Tạo nhiều hơn (mỗi 150ms sẽ có trái tim mới)
+    // Tạo nhiều hơn (mỗi 150ms có trái tim mới)
     setInterval(createHeart, 150);
 
     // Một số trình duyệt chặn autoplay, nên chờ user click
@@ -108,4 +109,3 @@ function createHeart(){
   </script>
 </body>
 </html>
-
