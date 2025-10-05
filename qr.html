@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>QR để mở ảnh</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body { font-family: sans-serif; display:flex; align-items:center; justify-content:center; min-height:100vh;
+background:#0b1530; color:#fff; margin:0; }
+.card { text-align:center; background: rgba(255,255,255,0.03); padding:20px; border-radius:12px; box-shadow:0 6px 30px rgba(0,0,0,.6); }
+input { width:280px; padding:8px; border-radius:6px; border:none; margin-bottom:10px; }
+button { padding:8px 12px; border-radius:6px; border:none; cursor:pointer; }
+#qrcanvas { margin-top:12px; }
+</style>
+</head>
+<body>
+<div class="card">
+<div>
+<label style="font-size:14px">URL (trang sẽ mở khi quét):</label><br>
+<!-- Mặc định để 1 giá trị ví dụ, bạn cần sửa thành URL public của mình sau khi deploy -->
+<input id="url" value="https://yourusername.github.io/repo-name/index.html">
+</div>
+<div>
+<button id="gen">Tạo QR</button>
+</div>
+<div id="qrcanvas"></div>
+</div>
+
+
+<!-- Thư viện QR: QRCode.js (client-side, nhẹ) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const genBtn = document.getElementById('gen');
+const qDiv = document.getElementById('qrcanvas');
+genBtn.addEventListener('click', () => {
+qDiv.innerHTML = '';
+const url = document.getElementById('url').value.trim();
+if (!url) return alert('Nhập URL trước.');
+new QRCode(qDiv, { text: url, width: 320, height: 320 });
+});
+
+
+// tạo QR mặc định khi mở trang
+window.addEventListener('load', () => genBtn.click());
+</script>
+</body>
+</html>
