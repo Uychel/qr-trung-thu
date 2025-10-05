@@ -64,16 +64,23 @@
     const colors = ["#ff4d4d","#ff66b2","#ffcc00","#66ff66","#66ccff","#ff99ff","#ffffff"];
 
     // Hàm tạo trái tim ngẫu nhiên
-    function createHeart(){
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerHTML = "❤";
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤";
 
+  // Tạo kích thước đa dạng: từ 15px đến 150px
+  const sizes = [15, 30, 50, 80, 120, 150]; 
+  heart.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)] + "px";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{ heart.remove(); },5000);
+}
       // Vị trí ngẫu nhiên
       heart.style.left = Math.random() * 100 + "vw";
-
-      // Kích thước ngẫu nhiên (to hơn)
-      heart.style.fontSize = (Math.random() * 40 + 20) + "px";
 
       // Màu ngẫu nhiên
       heart.style.color = colors[Math.floor(Math.random() * colors.length)];
@@ -101,3 +108,4 @@
   </script>
 </body>
 </html>
+
